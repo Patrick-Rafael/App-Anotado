@@ -20,7 +20,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private EditText editAddTask, editDescriptionTask;
     private Button btnSaveTask;
-    private String addedTask, taskDescription;
+    private String addedTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,27 +34,32 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 saveTask();
                 Toast.makeText(AddTaskActivity.this, "Tarefa Salva", Toast.LENGTH_SHORT).show();
+
             }
         });
 
     }
 
-    public void saveTask(){
+    public void saveTask() {
+
+        String taskName = editAddTask.getText().toString();
 
         TaskDAO taskDAO = new TaskDAO(getApplicationContext());
 
-        Checks checks = new Checks();
-        checks.setTextDescriptionChecks("Teste");
-        checks.setTextTitleChecks("Tarefa Teste");
 
-        taskDAO.save(checks);
+        if (!taskName.isEmpty()) {
+            Checks checks = new Checks();
+            checks.setTextTitleChecks(taskName);
+            taskDAO.save(checks);
+            finish();
+        }
+
 
     }
 
     public void ids() {
 
         editAddTask = findViewById(R.id.editAddTask);
-        editDescriptionTask = findViewById(R.id.editDescriptionTask);
         btnSaveTask = findViewById(R.id.buttonSaveTask);
 
     }

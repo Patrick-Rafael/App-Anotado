@@ -2,12 +2,14 @@ package com.example.checkapp.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.checkapp.model.Checks;
 import com.example.checkapp.view.ITaskDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDAO implements ITaskDAO {
@@ -28,7 +30,7 @@ public class TaskDAO implements ITaskDAO {
 
         ContentValues cv = new ContentValues();
         cv.put("name", checks.getTextTitleChecks());
-        cv.put("name", checks.getTextDescriptionChecks());
+
 
         try {
 
@@ -55,6 +57,28 @@ public class TaskDAO implements ITaskDAO {
 
     @Override
     public List<Checks> list() {
-        return null;
+
+        List<Checks> tasks = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + DbHelper.TASK_TABLE + ";";
+
+        Cursor c = read.rawQuery(sql, null);
+
+        while (c.moveToNext()){
+
+            Checks checks = new Checks();
+
+
+            Long id = c.getLong(c.getColumnIndex("id"));
+            String taskName = c.getString(c.getColumnIndex("name"));
+
+
+            checks.setId(id);
+            checks.setTextTitleChecks(taskName);
+
+            tasks.add(checks);
+        }
+
+        return tasks;
     }
 }

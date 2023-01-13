@@ -9,10 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 
 import com.example.checkapp.R;
 import com.example.checkapp.adapter.Adapter_Checks;
 import com.example.checkapp.helper.DbHelper;
+import com.example.checkapp.helper.RecyclerItemClickListener;
+import com.example.checkapp.helper.TaskDAO;
 import com.example.checkapp.model.Checks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,18 +34,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ids();
-        additens();
+        listItens();
 
-        //RecyclerView
-        adapterChecks = new Adapter_Checks(this, listChecks);
-        LinearLayoutManager lmg = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerViewChecks.setLayoutManager(lmg);
-        recyclerViewChecks.setAdapter(adapterChecks);
-        recyclerViewChecks.setHasFixedSize(true);
+        //Evento de clique
+        recyclerViewChecks.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(),
+                recyclerViewChecks,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
 
+                        Intent i = new Intent(getApplicationContext(), TasksActivity.class);
+                        startActivity(i);
 
-        
+                    }
 
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    }
+                }
+        ));
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        listItens();
     }
 
     public void ids() {
@@ -52,13 +76,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void additens() {
+    public void listItens() {
+        TaskDAO taskDAO = new TaskDAO(getApplicationContext());
+        listChecks = (ArrayList<Checks>) taskDAO.list();
 
-        listChecks = new ArrayList<Checks>();
-
-        listChecks.add(new Checks("Teste Titulo", "testeDescrição"));
-        listChecks.add(new Checks("Teste Titulo", "testeDescrição"));
-        listChecks.add(new Checks("Teste Titulo", "testeDescrição"));
+        //RecyclerView
+        adapterChecks = new Adapter_Checks(this, listChecks);
+        LinearLayoutManager lmg = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewChecks.setLayoutManager(lmg);
+        recyclerViewChecks.setAdapter(adapterChecks);
+        recyclerViewChecks.setHasFixedSize(true);
 
     }
 

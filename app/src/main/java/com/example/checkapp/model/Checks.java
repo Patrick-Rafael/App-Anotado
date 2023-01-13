@@ -4,15 +4,17 @@ import android.widget.CheckBox;
 
 public class Checks {
 
-    private String textTitleChecks, textDescriptionChecks;
+    private String textTitleChecks;
+    private Long id;
     private CheckBox checkBoxChecks;
 
     public Checks() {
     }
 
-    public Checks(String textTitleChecks, String textDescriptionChecks) {
+    public Checks(String textTitleChecks, String textDescriptionChecks, Long id) {
         this.textTitleChecks = textTitleChecks;
-        this.textDescriptionChecks = textDescriptionChecks;
+
+        this.id = id;
 
     }
 
@@ -20,17 +22,18 @@ public class Checks {
         return textTitleChecks;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setTextTitleChecks(String textTitleChecks) {
         this.textTitleChecks = textTitleChecks;
     }
 
-    public String getTextDescriptionChecks() {
-        return textDescriptionChecks;
-    }
-
-    public void setTextDescriptionChecks(String textDescriptionChecks) {
-        this.textDescriptionChecks = textDescriptionChecks;
-    }
 
     public CheckBox getCheckBoxChecks() {
         return checkBoxChecks;

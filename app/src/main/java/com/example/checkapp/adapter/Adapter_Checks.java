@@ -41,7 +41,7 @@ public class Adapter_Checks extends RecyclerView.Adapter<Adapter_Checks.MyViewHo
 
         Checks checks = checksArrayList.get(position);
         holder.textTitleCheks.setText(checks.getTextTitleChecks());
-        holder.textDescriptionChecks.setText(checks.getTextDescriptionChecks());
+
 
     }
 
@@ -58,7 +58,7 @@ public class Adapter_Checks extends RecyclerView.Adapter<Adapter_Checks.MyViewHo
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textTitleCheks = itemView.findViewById(R.id.textTitleChecks);
-            textDescriptionChecks = itemView.findViewById(R.id.textDescriptionChecks);
+
 
         }
     }
