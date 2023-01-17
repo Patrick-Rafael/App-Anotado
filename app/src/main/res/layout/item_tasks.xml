@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:id="@+id/textTask"
+        android:id="@+id/textTitleTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

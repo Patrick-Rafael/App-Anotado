@@ -4,30 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 
 import com.example.checkapp.R;
 import com.example.checkapp.adapter.Adapter_Checks;
-import com.example.checkapp.helper.DbHelper;
 import com.example.checkapp.helper.RecyclerItemClickListener;
 import com.example.checkapp.helper.TaskDAO;
 import com.example.checkapp.model.Checks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewChecks;
     private Adapter_Checks adapterChecks;
     private ArrayList<Checks> listChecks = new ArrayList<>();
-    private FloatingActionButton btnAddTasks;
+    private FloatingActionButton btnAddChecks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
                         Intent i = new Intent(getApplicationContext(), TasksActivity.class);
                         startActivity(i);
 
@@ -72,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public void ids() {
 
         recyclerViewChecks = findViewById(R.id.recyclerChecks);
-        btnAddTasks = findViewById(R.id.floatingButtonAddTask);
+        btnAddChecks = findViewById(R.id.floatingButtonAddTask);
 
     }
 
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickEvent(View view) {
-        Intent i = new Intent(this, AddTaskActivity.class);
+        Intent i = new Intent(this, AddCheckActivity.class);
         startActivity(i);
     }
 

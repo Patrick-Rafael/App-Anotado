@@ -11,7 +11,7 @@ public class Checks {
     public Checks() {
     }
 
-    public Checks(String textTitleChecks, String textDescriptionChecks, Long id) {
+    public Checks(String textTitleChecks, Long id) {
         this.textTitleChecks = textTitleChecks;
 
         this.id = id;
