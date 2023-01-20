@@ -7,19 +7,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.checkapp.model.Checks;
-import com.example.checkapp.view.ITaskDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskDAO implements ITaskDAO {
+public class CheckDAO implements ICheckDAO {
 
     private SQLiteDatabase write;
     private SQLiteDatabase read;
 
-    public TaskDAO(Context context) {
+    public CheckDAO(Context context) {
 
-        DbHelper db = new DbHelper(context);
+        DbHelper_Check db = new DbHelper_Check(context);
 
         write = db.getWritableDatabase();
         read = db.getReadableDatabase();
@@ -34,11 +33,11 @@ public class TaskDAO implements ITaskDAO {
 
         try {
 
-            write.insert(DbHelper.TASK_TABLE, null, cv);
-            Log.i("INFO", "Tarefa salva com sucesso" );
+            write.insert(DbHelper_Check.TABLE, null, cv);
+            Log.i("INFO", "Check salva com sucesso");
 
         } catch (Exception e) {
-            Log.i("INFO", "Erro ao salvar tarefa" + e.getMessage());
+            Log.i("INFO", "Erro ao salvar Check" + e.getMessage());
             return false;
         }
 
@@ -58,27 +57,27 @@ public class TaskDAO implements ITaskDAO {
     @Override
     public List<Checks> list() {
 
-        List<Checks> tasks = new ArrayList<>();
+        List<Checks> check = new ArrayList<>();
 
-        String sql = "SELECT * FROM " + DbHelper.TASK_TABLE + ";";
+        String sql = "SELECT * FROM " + DbHelper_Check.TABLE + ";";
 
         Cursor c = read.rawQuery(sql, null);
 
-        while (c.moveToNext()){
+        while (c.moveToNext()) {
 
             Checks checks = new Checks();
 
 
             Long id = c.getLong(c.getColumnIndex("id"));
-            String taskName = c.getString(c.getColumnIndex("name"));
+            String CheckName = c.getString(c.getColumnIndex("name"));
 
 
             checks.setId(id);
-            checks.setTextTitleChecks(taskName);
+            checks.setTextTitleChecks(CheckName);
 
-            tasks.add(checks);
+            check.add(checks);
         }
 
-        return tasks;
+        return check;
     }
 }

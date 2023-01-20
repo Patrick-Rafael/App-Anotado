@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import com.example.checkapp.R;
 import com.example.checkapp.adapter.Adapter_Checks;
 import com.example.checkapp.helper.RecyclerItemClickListener;
-import com.example.checkapp.helper.TaskDAO;
+import com.example.checkapp.helper.CheckDAO;
 import com.example.checkapp.model.Checks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         listItens();
 
         //Evento de clique
-        recyclerViewChecks.addOnItemTouchListener(new RecyclerItemClickListener(
+        /*recyclerViewChecks.addOnItemTouchListener(new RecyclerItemClickListener(
                 getApplicationContext(),
                 recyclerViewChecks,
                 new RecyclerItemClickListener.OnItemClickListener() {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-        ));
+        ));*/
 
     }
 
@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
     public void ids() {
 
         recyclerViewChecks = findViewById(R.id.recyclerChecks);
-        btnAddChecks = findViewById(R.id.floatingButtonAddTask);
+        btnAddChecks = findViewById(R.id.floatingButtonAddCheks);
 
     }
 
     public void listItens() {
-        TaskDAO taskDAO = new TaskDAO(getApplicationContext());
-        listChecks = (ArrayList<Checks>) taskDAO.list();
+        CheckDAO checkDAO = new CheckDAO(getApplicationContext());
+        listChecks = (ArrayList<Checks>) checkDAO.list();
 
         //RecyclerView
         adapterChecks = new Adapter_Checks(this, listChecks);

@@ -4,6 +4,9 @@ public class Tasks {
 
     String textTitleTasks;
 
+    public Tasks() {
+    }
+
     public String getTextTitleTasks() {
         return textTitleTasks;
     }

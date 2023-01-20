@@ -1,11 +1,11 @@
-package com.example.checkapp.view;
+package com.example.checkapp.helper;
 
 import com.example.checkapp.model.Checks;
 
 import java.util.List;
 
 
-public interface ITaskDAO {
+public interface ICheckDAO {
 
     public Boolean save(Checks checks);
     public Boolean update(Checks checks);

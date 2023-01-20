@@ -13,21 +13,7 @@
         android:theme="@style/Theme.CheckApp"
         tools:targetApi="31">
         <activity
-            android:name=".view.AddTaskActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".view.AddCheckActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".view.TasksActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -9,14 +9,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.checkapp.R;
-import com.example.checkapp.helper.TaskDAO;
+import com.example.checkapp.helper.CheckDAO;
 import com.example.checkapp.model.Checks;
 
 public class AddCheckActivity extends AppCompatActivity {
 
-    private EditText editAddTask, editDescriptionTask;
-    private Button btnSaveTask;
-    private String addedTask;
+    private EditText editAddCheck;
+    private Button btnSaveCheck;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +25,10 @@ public class AddCheckActivity extends AppCompatActivity {
         ids();
 
 
-        btnSaveTask.setOnClickListener(new View.OnClickListener() {
+        btnSaveCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveTask();
+                saveCheck();
                 Toast.makeText(AddCheckActivity.this, "Tarefa Salva", Toast.LENGTH_SHORT).show();
 
             }
@@ -36,17 +36,17 @@ public class AddCheckActivity extends AppCompatActivity {
 
     }
 
-    public void saveTask() {
+    public void saveCheck() {
 
-        String taskName = editAddTask.getText().toString();
+        String checkName = editAddCheck.getText().toString();
 
-        TaskDAO taskDAO = new TaskDAO(getApplicationContext());
+        CheckDAO checkDAO = new CheckDAO(getApplicationContext());
 
 
-        if (!taskName.isEmpty()) {
+        if (!checkName.isEmpty()) {
             Checks checks = new Checks();
-            checks.setTextTitleChecks(taskName);
-            taskDAO.save(checks);
+            checks.setTextTitleChecks(checkName);
+            checkDAO.save(checks);
             finish();
         }
 
@@ -55,8 +55,8 @@ public class AddCheckActivity extends AppCompatActivity {
 
     public void ids() {
 
-        editAddTask = findViewById(R.id.editAddCheck);
-        btnSaveTask = findViewById(R.id.buttonSaveCheck);
+        editAddCheck = findViewById(R.id.editAddCheck);
+        btnSaveCheck = findViewById(R.id.buttonSaveCheck);
 
     }
 }
