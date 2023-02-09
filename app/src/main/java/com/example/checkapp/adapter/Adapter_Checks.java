@@ -40,7 +40,9 @@ public class Adapter_Checks extends RecyclerView.Adapter<Adapter_Checks.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Checks checks = checksArrayList.get(position);
-        holder.textTitleCheks.setText(checks.getTextTitleChecks());
+        holder.textTitleCheks.setText(checks.getTextTitle());
+        holder.textDescription.setText(checks.getTextDescription());
+        holder.textDate.setText(checks.getTextDate());
 
 
     }
@@ -52,12 +54,14 @@ public class Adapter_Checks extends RecyclerView.Adapter<Adapter_Checks.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textTitleCheks, textDescriptionChecks;
+        private TextView textTitleCheks, textDescription,textDate;
         private CheckBox checkBoxChecks;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textTitleCheks = itemView.findViewById(R.id.textTitleChecks);
+            textTitleCheks = itemView.findViewById(R.id.textTitle);
+            textDescription = itemView.findViewById(R.id.textDescription);
+            textDate = itemView.findViewById(R.id.textDate);
 
 
         }

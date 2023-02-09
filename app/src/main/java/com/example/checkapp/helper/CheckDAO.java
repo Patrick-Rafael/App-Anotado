@@ -28,7 +28,7 @@ public class CheckDAO implements ICheckDAO {
     public Boolean save(Checks checks) {
 
         ContentValues cv = new ContentValues();
-        cv.put("name", checks.getTextTitleChecks());
+        cv.put("name", checks.getTextTitle());
 
 
         try {
@@ -73,7 +73,7 @@ public class CheckDAO implements ICheckDAO {
 
 
             checks.setId(id);
-            checks.setTextTitleChecks(CheckName);
+            checks.setTextTitle(CheckName);
 
             check.add(checks);
         }

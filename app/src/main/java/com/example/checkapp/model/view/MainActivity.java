@@ -1,4 +1,4 @@
-package com.example.checkapp.view;
+package com.example.checkapp.model.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.example.checkapp.R;
 import com.example.checkapp.adapter.Adapter_Checks;
-import com.example.checkapp.helper.RecyclerItemClickListener;
 import com.example.checkapp.helper.CheckDAO;
 import com.example.checkapp.model.Checks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

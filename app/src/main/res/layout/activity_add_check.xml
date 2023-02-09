@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AddCheckActivity">
+    android:background="@color/background">
 
     <EditText
         android:id="@+id/editAddCheck"
@@ -20,15 +20,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/editDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Descrição"
+        app:layout_constraintEnd_toEndOf="@+id/editAddCheck"
+        app:layout_constraintStart_toStartOf="@+id/editAddCheck"
+        app:layout_constraintTop_toBottomOf="@+id/editAddCheck" />
+
+    <EditText
+        android:id="@+id/editDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:layout_marginTop="16dp"
+        android:hint="Insira a data"
+        app:layout_constraintStart_toStartOf="@+id/editDescription"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
     <Button
         android:id="@+id/buttonSaveCheck"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/saveTask"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editAddCheck" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editDate"
+        app:layout_constraintStart_toEndOf="@+id/editDate"
+        app:layout_constraintTop_toTopOf="@+id/editDate"
+        app:srcCompat="@drawable/ic_calendar" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
