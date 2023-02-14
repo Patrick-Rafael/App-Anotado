@@ -71,7 +71,7 @@ public class CheckDAO implements ICheckDAO {
 
 
             Long id = c.getLong(c.getColumnIndex("id"));
-            String CheckTitle = c.getString(c.getColumnIndex("name"));
+            String CheckTitle = c.getString(c.getColumnIndex("title"));
             String CheckDate = c.getString(c.getColumnIndex("date"));
             String CheckDescription = c.getString(c.getColumnIndex("description"));
 

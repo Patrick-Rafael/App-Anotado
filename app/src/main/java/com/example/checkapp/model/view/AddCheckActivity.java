@@ -52,7 +52,7 @@ public class AddCheckActivity extends AppCompatActivity {
             case R.id.itemSalvar:
 
                 saveCheck();
-                Toast.makeText(AddCheckActivity.this, "Tarefa Salva", Toast.LENGTH_SHORT).show();
+
 
                 break;
 
@@ -72,7 +72,7 @@ public class AddCheckActivity extends AppCompatActivity {
 
         if (!checkName.isEmpty()) {
             if (!checkDescription.isEmpty()) {
-                if (checkData.isEmpty()) {
+                if (!checkData.isEmpty()) {
                     Checks checks = new Checks();
                     checks.setTextTitle(checkName);
                     checks.setTextDescription(checkDescription);
@@ -81,17 +81,17 @@ public class AddCheckActivity extends AppCompatActivity {
                     finish();
 
                 } else {
-                    Toast.makeText(AddCheckActivity.this, "Selecione a data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCheckActivity.this, "Selecione a data!", Toast.LENGTH_SHORT).show();
                 }
 
             } else {
 
-                Toast.makeText(AddCheckActivity.this, "Digite a Descrição", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddCheckActivity.this, "Digite a Descrição!", Toast.LENGTH_SHORT).show();
 
             }
 
         } else {
-            Toast.makeText(AddCheckActivity.this, "Digite o nome!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddCheckActivity.this, "Digite o Titulo da tarefa!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -104,22 +104,19 @@ public class AddCheckActivity extends AppCompatActivity {
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        imageDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog dialog = new DatePickerDialog(AddCheckActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+        imageDate.setOnClickListener(view -> {
+            DatePickerDialog dialog = new DatePickerDialog(AddCheckActivity.this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year1, int month1, int dayOfMonth) {
 
-                        month = month + 1;
-                        String date = day + "/" + month + "/" + year;
-                        editDate.setText(date);
+                    month1 = month1 + 1;
+                    String date = dayOfMonth + "/" + month1 + "/" + year1;
+                    editDate.setText(date);
 
 
-                    }
-                }, year, month, day);
-                dialog.show();
-            }
+                }
+            }, year, month, day);
+            dialog.show();
         });
 
 

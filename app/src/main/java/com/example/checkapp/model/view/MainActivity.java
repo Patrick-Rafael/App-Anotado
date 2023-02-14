@@ -1,6 +1,7 @@
 package com.example.checkapp.model.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         //RecyclerView
         adapterChecks = new Adapter_Checks(this, listChecks);
         LinearLayoutManager lmg = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewChecks.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerViewChecks.setLayoutManager(lmg);
         recyclerViewChecks.setAdapter(adapterChecks);
         recyclerViewChecks.setHasFixedSize(true);
