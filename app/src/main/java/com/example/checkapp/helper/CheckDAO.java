@@ -28,7 +28,9 @@ public class CheckDAO implements ICheckDAO {
     public Boolean save(Checks checks) {
 
         ContentValues cv = new ContentValues();
-        cv.put("name", checks.getTextTitle());
+        cv.put("title", checks.getTextTitle());
+        cv.put("description", checks.getTextDescription());
+        cv.put("date", checks.getTextDate());
 
 
         try {
@@ -69,11 +71,14 @@ public class CheckDAO implements ICheckDAO {
 
 
             Long id = c.getLong(c.getColumnIndex("id"));
-            String CheckName = c.getString(c.getColumnIndex("name"));
-
+            String CheckTitle = c.getString(c.getColumnIndex("name"));
+            String CheckDate = c.getString(c.getColumnIndex("date"));
+            String CheckDescription = c.getString(c.getColumnIndex("description"));
 
             checks.setId(id);
-            checks.setTextTitle(CheckName);
+            checks.setTextTitle(CheckTitle);
+            checks.setTextDescription(CheckDescription);
+            checks.setTextDate(CheckDate);
 
             check.add(checks);
         }

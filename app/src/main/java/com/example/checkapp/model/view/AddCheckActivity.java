@@ -1,9 +1,12 @@
 package com.example.checkapp.model.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,13 +17,13 @@ import android.widget.Toast;
 import com.example.checkapp.R;
 import com.example.checkapp.helper.CheckDAO;
 import com.example.checkapp.model.Checks;
+import com.google.android.material.internal.CheckableGroup;
 
 import java.util.Calendar;
 
 public class AddCheckActivity extends AppCompatActivity {
 
     private EditText editAddCheck, editDate, editDescrition;
-    private Button btnSaveCheck;
     private ImageView imageDate;
 
 
@@ -32,29 +35,63 @@ public class AddCheckActivity extends AppCompatActivity {
         date();
 
 
-        btnSaveCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_add_check, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.itemSalvar:
+
                 saveCheck();
                 Toast.makeText(AddCheckActivity.this, "Tarefa Salva", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                break;
 
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void saveCheck() {
 
         String checkName = editAddCheck.getText().toString();
+        String checkDescription = editDescrition.getText().toString();
+        String checkData = editDate.getText().toString();
 
         CheckDAO checkDAO = new CheckDAO(getApplicationContext());
 
 
         if (!checkName.isEmpty()) {
-            Checks checks = new Checks();
-            checks.setTextTitle(checkName);
-            checkDAO.save(checks);
-            finish();
+            if (!checkDescription.isEmpty()) {
+                if (checkData.isEmpty()) {
+                    Checks checks = new Checks();
+                    checks.setTextTitle(checkName);
+                    checks.setTextDescription(checkDescription);
+                    checks.setTextDate(checkData);
+                    checkDAO.save(checks);
+                    finish();
+
+                } else {
+                    Toast.makeText(AddCheckActivity.this, "Selecione a data", Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+
+                Toast.makeText(AddCheckActivity.this, "Digite a Descrição", Toast.LENGTH_SHORT).show();
+
+            }
+
+        } else {
+            Toast.makeText(AddCheckActivity.this, "Digite o nome!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -91,7 +128,6 @@ public class AddCheckActivity extends AppCompatActivity {
     public void ids() {
 
         editAddCheck = findViewById(R.id.editAddCheck);
-        btnSaveCheck = findViewById(R.id.buttonSaveCheck);
         editDate = findViewById(R.id.editDate);
         editDescrition = findViewById(R.id.editDescription);
         imageDate = findViewById(R.id.imageDate);

@@ -17,15 +17,17 @@ public class DbHelper_Check extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE
-                + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                " name TEXT NOT NULL ); ";
+        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE + " " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "" + " title TEXT NOT NULL , " +
+                "" + " description NOT NULL , " +
+                "" + " date NOT NULL  ); ";
 
         try {
-            sqLiteDatabase.execSQL( sql );
-            Log.i("INFO DB", "Sucesso ao criar a tabela" );
-        }catch (Exception e){
-            Log.i("INFO DB", "Erro ao criar a tabela" + e.getMessage() );
+            sqLiteDatabase.execSQL(sql);
+            Log.i("INFO DB", "Sucesso ao criar a tabela");
+        } catch (Exception e) {
+            Log.i("INFO DB", "Erro ao criar a tabela" + e.getMessage());
         }
 
     }
