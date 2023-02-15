@@ -48,7 +48,27 @@ public class CheckDAO implements ICheckDAO {
 
     @Override
     public Boolean update(Checks checks) {
-        return null;
+
+        ContentValues cv = new ContentValues();
+
+        cv.put("title", checks.getTextTitle());
+        cv.put("description", checks.getTextDescription());
+        cv.put("date", checks.getTextDate());
+
+        try {
+            String[] args = {checks.getId().toString()};
+
+            write.update(DbHelper_Check.TABLE, cv, "id=?", args);
+
+            Log.i("INFO", "Check atualizada com sucesso");
+
+        } catch (Exception e) {
+            Log.i("INFO", "Erro ao atualizada Check" + e.getMessage());
+            return false;
+        }
+
+
+        return true;
     }
 
     @Override

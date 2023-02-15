@@ -2,11 +2,13 @@ package com.example.checkapp.model;
 
 import android.widget.CheckBox;
 
-public class Checks {
+import java.io.Serializable;
+
+public class Checks implements Serializable {
 
     private String textTitle, textDescription, textDate;
     private Long id;
-    private CheckBox checkBoxChecks;
+
 
     public String getTextDescription() {
         return textDescription;
@@ -51,11 +53,4 @@ public class Checks {
     }
 
 
-    public CheckBox getCheckBoxChecks() {
-        return checkBoxChecks;
-    }
-
-    public void setCheckBoxChecks(CheckBox checkBoxChecks) {
-        this.checkBoxChecks = checkBoxChecks;
-    }
 }

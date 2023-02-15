@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.example.checkapp.R;
 import com.example.checkapp.adapter.Adapter_Checks;
 import com.example.checkapp.helper.CheckDAO;
+import com.example.checkapp.helper.RecyclerItemClickListener;
 import com.example.checkapp.model.Checks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,16 +33,21 @@ public class MainActivity extends AppCompatActivity {
         ids();
         listItens();
 
+        getSupportActionBar().hide();
+
         //Evento de clique
-        /*recyclerViewChecks.addOnItemTouchListener(new RecyclerItemClickListener(
+        recyclerViewChecks.addOnItemTouchListener(new RecyclerItemClickListener(
                 getApplicationContext(),
                 recyclerViewChecks,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent i = new Intent(getApplicationContext(), TasksActivity.class);
-                        startActivity(i);
 
+                        Checks checkSelecionado = listChecks.get(position);
+
+                        Intent intent = new Intent(MainActivity.this, AddCheckActivity.class);
+                        intent.putExtra("checkSelecionada", checkSelecionado);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-        ));*/
+        ));
 
     }
 
@@ -77,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         //RecyclerView
         adapterChecks = new Adapter_Checks(this, listChecks);
         LinearLayoutManager lmg = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerViewChecks.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        //recyclerViewChecks.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerViewChecks.setLayoutManager(lmg);
         recyclerViewChecks.setAdapter(adapterChecks);
         recyclerViewChecks.setHasFixedSize(true);

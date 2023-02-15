@@ -7,8 +7,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 import com.example.checkapp.R;
 import com.example.checkapp.helper.CheckDAO;
 import com.example.checkapp.model.Checks;
-import com.google.android.material.internal.CheckableGroup;
 
 import java.util.Calendar;
 
@@ -25,6 +22,7 @@ public class AddCheckActivity extends AppCompatActivity {
 
     private EditText editAddCheck, editDate, editDescrition;
     private ImageView imageDate;
+    private Checks checkAtual;
 
 
     @Override
@@ -33,6 +31,16 @@ public class AddCheckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_check);
         ids();
         date();
+
+        //Recuperar tarefa
+        checkAtual = (Checks) getIntent().getSerializableExtra("checkSelecionada");
+
+        if (checkAtual != null) {
+
+            editAddCheck.setText(checkAtual.getTextTitle());
+            editDescrition.setText(checkAtual.getTextDescription());
+            editDate.setText(checkAtual.getTextDate());
+        }
 
 
     }
@@ -70,28 +78,63 @@ public class AddCheckActivity extends AppCompatActivity {
         CheckDAO checkDAO = new CheckDAO(getApplicationContext());
 
 
-        if (!checkName.isEmpty()) {
-            if (!checkDescription.isEmpty()) {
-                if (!checkData.isEmpty()) {
-                    Checks checks = new Checks();
-                    checks.setTextTitle(checkName);
-                    checks.setTextDescription(checkDescription);
-                    checks.setTextDate(checkData);
-                    checkDAO.save(checks);
-                    finish();
+        if (checkAtual != null) {
+
+            if(!checkName.isEmpty()){
+                if(!checkDescription.isEmpty()){
+                    if(!checkData.isEmpty()){
+                        Checks checks = new Checks();
+                        checks.setTextTitle(checkName);
+                        checks.setTextDescription(checkDescription);
+                        checks.setTextDate(checkData);
+                        checks.setId(checkAtual.getId());
+
+                        if(checkDAO.update(checks)){
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Sucesso ao Atualizar Tarefa", Toast.LENGTH_SHORT).show();
+                        }else {
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Erro ao Atualizar Tarefa", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                }
+            }
+
+
+
+        } else {
+
+
+            if (!checkName.isEmpty()) {
+                if (!checkDescription.isEmpty()) {
+                    if (!checkData.isEmpty()) {
+                        Checks checks = new Checks();
+                        checks.setTextTitle(checkName);
+                        checks.setTextDescription(checkDescription);
+                        checks.setTextDate(checkData);
+                        if (checkDAO.save(checks)) {
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Sucesso ao salvar Tarefa", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Erro ao salvar Tarefa", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    } else {
+                        Toast.makeText(AddCheckActivity.this, "Selecione a data!", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
-                    Toast.makeText(AddCheckActivity.this, "Selecione a data!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(AddCheckActivity.this, "Digite a Descrição!", Toast.LENGTH_SHORT).show();
+
                 }
 
             } else {
-
-                Toast.makeText(AddCheckActivity.this, "Digite a Descrição!", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(AddCheckActivity.this, "Digite o Titulo da tarefa!", Toast.LENGTH_SHORT).show();
             }
-
-        } else {
-            Toast.makeText(AddCheckActivity.this, "Digite o Titulo da tarefa!", Toast.LENGTH_SHORT).show();
         }
 
 
