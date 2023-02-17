@@ -1,14 +1,21 @@
 package com.example.checkapp.model.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.checkapp.R;
 import com.example.checkapp.adapter.Adapter_Checks;
@@ -16,8 +23,11 @@ import com.example.checkapp.helper.CheckDAO;
 import com.example.checkapp.helper.RecyclerItemClickListener;
 import com.example.checkapp.model.Checks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ids();
         listItens();
+
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerViewChecks);
 
         getSupportActionBar().hide();
 
@@ -53,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onLongItemClick(View view, int position) {
 
+
                     }
 
                     @Override
@@ -69,6 +82,66 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         listItens();
     }
+
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
+
+            int position = 0;
+
+            AlertDialog.Builder alertFinalizar = new AlertDialog.Builder(MainActivity.this);
+
+            alertFinalizar.setTitle("Finalizar  tarefa");
+            alertFinalizar.setMessage("Deseja finalizar a tarefa?");
+            alertFinalizar.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    CheckDAO checkDAO = new CheckDAO(getApplicationContext());
+
+                    Checks checkSelecionado = listChecks.get(position);
+
+                    checkDAO.delete(checkSelecionado);
+
+                    listItens();
+
+
+                }
+            });
+
+            alertFinalizar.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    listItens();
+                }
+            });
+            alertFinalizar.setCancelable(true);
+            alertFinalizar.create().show();
+
+
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.deleteColor))
+                    .addSwipeLeftActionIcon(R.drawable.ic_delete)
+                    .addSwipeLeftLabel("Deletar")
+                    .setSwipeLeftLabelColor(ContextCompat.getColor(MainActivity.this, R.color.white))
+                    .create()
+                    .decorate();
+
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+    };
 
     public void ids() {
 
