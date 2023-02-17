@@ -3,7 +3,9 @@ package com.example.checkapp.model.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,9 +60,35 @@ public class AddCheckActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.itemSalvar:
-
                 saveCheck();
+                break;
 
+            case R.id.itemFinalizar:
+                AlertDialog.Builder alertFinalizar = new AlertDialog.Builder(AddCheckActivity.this);
+
+                alertFinalizar.setTitle("Finalizar  tarefa");
+                alertFinalizar.setMessage("Deseja finalizar a tarefa?");
+                alertFinalizar.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        CheckDAO checkDAO = new CheckDAO(getApplicationContext());
+
+                        if(checkDAO.delete(checkAtual)){
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Sucesso ao excluir Tarefa", Toast.LENGTH_SHORT).show();
+                        }else{
+
+                            Toast.makeText(getApplicationContext(), "Sucesso ao excluir Tarefa", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
+
+                alertFinalizar.setNegativeButton("Não" , null );
+                alertFinalizar.setCancelable(true);
+                alertFinalizar.create().show();
 
                 break;
 
@@ -105,7 +133,6 @@ public class AddCheckActivity extends AppCompatActivity {
 
 
         } else {
-
 
             if (!checkName.isEmpty()) {
                 if (!checkDescription.isEmpty()) {

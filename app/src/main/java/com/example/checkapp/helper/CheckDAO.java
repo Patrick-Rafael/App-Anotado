@@ -73,7 +73,21 @@ public class CheckDAO implements ICheckDAO {
 
     @Override
     public Boolean delete(Checks checks) {
-        return null;
+
+        try {
+
+            String[] args = {checks.getId().toString()};
+            write.delete(DbHelper_Check.TABLE, "id=?", args);
+
+            Log.i("INFO", "Check removida com sucesso");
+
+        } catch (Exception e) {
+            Log.i("INFO", "Erro ao remover Check" + e.getMessage());
+            return false;
+        }
+
+
+        return true;
     }
 
     @Override
