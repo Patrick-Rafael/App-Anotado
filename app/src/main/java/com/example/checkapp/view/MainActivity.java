@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity  {
                     public void onLongItemClick(View view, int position) {
 
 
+                        alertDelete(position);
                     }
 
                     @Override
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity  {
                 Toast.makeText(getApplicationContext(), "Deu ruim", Toast.LENGTH_SHORT).show();
             }*/
 
-            alertDelete(position);
+           // alertDelete(position);
 
         }
 

@@ -1,6 +1,7 @@
 package com.example.checkapp.view;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -34,6 +35,7 @@ public class AddCheckActivity extends AppCompatActivity {
         ids();
         date();
 
+
         //Recuperar tarefa
         checkAtual = (Checks) getIntent().getSerializableExtra("checkSelecionada");
 
@@ -59,38 +61,10 @@ public class AddCheckActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.itemSalvar:
+            case R.id.itemFinalizar:
                 saveCheck();
                 break;
 
-            case R.id.itemFinalizar:
-                AlertDialog.Builder alertFinalizar = new AlertDialog.Builder(AddCheckActivity.this);
-
-                alertFinalizar.setTitle("Finalizar  tarefa");
-                alertFinalizar.setMessage("Deseja finalizar a tarefa?");
-                alertFinalizar.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        CheckDAO checkDAO = new CheckDAO(getApplicationContext());
-
-                        if(checkDAO.delete(checkAtual)){
-                            finish();
-                            Toast.makeText(getApplicationContext(), "Sucesso ao excluir Tarefa", Toast.LENGTH_SHORT).show();
-                        }else{
-
-                            Toast.makeText(getApplicationContext(), "Sucesso ao excluir Tarefa", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                    }
-                });
-
-                alertFinalizar.setNegativeButton("Não" , null );
-                alertFinalizar.setCancelable(true);
-                alertFinalizar.create().show();
-
-                break;
 
         }
 

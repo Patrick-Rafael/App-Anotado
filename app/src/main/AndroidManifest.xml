@@ -29,7 +29,7 @@
         <activity
             android:name=".view.SplashActivity"
             android:exported="true"
-            android:label="MainActivity">
+            android:label="CheckApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
