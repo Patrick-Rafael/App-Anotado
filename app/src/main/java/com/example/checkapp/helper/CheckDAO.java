@@ -109,12 +109,14 @@ public class CheckDAO implements ICheckDAO {
             String CheckDate = c.getString(c.getColumnIndex("date"));
             String CheckDescription = c.getString(c.getColumnIndex("description"));
 
-            checks.setId(id);
-            checks.setTextTitle(CheckTitle);
-            checks.setTextDescription(CheckDescription);
-            checks.setTextDate(CheckDate);
 
-            check.add(checks);
+                checks.setId(id);
+                checks.setTextTitle(CheckTitle);
+                checks.setTextDescription(CheckDescription);
+                checks.setTextDate(CheckDate);
+                check.add(checks);
+
+
         }
 
         return check;

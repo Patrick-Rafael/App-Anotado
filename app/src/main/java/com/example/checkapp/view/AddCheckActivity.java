@@ -1,4 +1,4 @@
-package com.example.checkapp.model.view;
+package com.example.checkapp.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
