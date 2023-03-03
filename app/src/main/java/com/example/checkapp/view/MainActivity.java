@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewChecks;
     private Adapter_Checks adapterChecks;
@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity  {
         ids();
         listItens();
 
-
-        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerViewChecks);
-
-        //getSupportActionBar().hide();
 
         //Evento de clique
         recyclerViewChecks.addOnItemTouchListener(new RecyclerItemClickListener(
@@ -100,15 +96,6 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int position) {
 
-
-           /* if (listChecks.size() == 4) {
-                position = position - 4;
-                alertDelete(position);
-            } else {
-                Toast.makeText(getApplicationContext(), "Deu ruim", Toast.LENGTH_SHORT).show();
-            }*/
-
-           // alertDelete(position);
 
         }
 

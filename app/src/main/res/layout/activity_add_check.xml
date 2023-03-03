@@ -6,49 +6,108 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <EditText
-        android:id="@+id/editAddCheck"
-        android:layout_width="0dp"
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:id="@+id/fieldAdd"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="@string/TitleTask"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints=""
+        tools:layout_editor_absoluteY="662dp">
 
-    <EditText
-        android:id="@+id/editDescription"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editAddCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/TitleTask" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fieldDesc"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Descrição"
-        app:layout_constraintEnd_toEndOf="@+id/editAddCheck"
-        app:layout_constraintStart_toStartOf="@+id/editAddCheck"
-        app:layout_constraintTop_toBottomOf="@+id/editAddCheck" />
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+
+
+        android:paddingHorizontal="20dp"
+        android:textColorHint="#616161"
+        app:layout_constraintEnd_toEndOf="@+id/fieldAdd"
+        app:layout_constraintStart_toStartOf="@+id/fieldAdd"
+        app:layout_constraintTop_toBottomOf="@+id/fieldAdd">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/DescriptionTask" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <EditText
         android:id="@+id/editDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:editable="false"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="16dp"
+        android:editable="false"
         android:hint="Insira a data"
-        app:layout_constraintStart_toStartOf="@+id/editDescription"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+        android:minHeight="48dp"
+        android:textColorHint="#616161"
+        app:layout_constraintStart_toStartOf="@+id/fieldDesc"
+        app:layout_constraintTop_toBottomOf="@+id/fieldDesc" />
+
+    <ImageView
+        android:id="@+id/imageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTime"
+        app:layout_constraintEnd_toStartOf="@+id/editTime"
+        app:layout_constraintTop_toTopOf="@+id/editTime"
+        app:srcCompat="@drawable/ic_notification"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/imageDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/editDate"
         app:layout_constraintStart_toEndOf="@+id/editDate"
         app:layout_constraintTop_toTopOf="@+id/editDate"
-        app:srcCompat="@drawable/ic_calendar" />
+        app:srcCompat="@drawable/ic_calendar"
+        tools:ignore="ImageContrastCheck" />
+
+    <EditText
+        android:id="@+id/editTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="18dp"
+        android:editable="false"
+        android:hint="Notificação"
+        android:minHeight="48dp"
+        android:textColorHint="#616161"
+        app:layout_constraintEnd_toEndOf="@+id/fieldDesc"
+        app:layout_constraintTop_toBottomOf="@+id/fieldDesc" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
