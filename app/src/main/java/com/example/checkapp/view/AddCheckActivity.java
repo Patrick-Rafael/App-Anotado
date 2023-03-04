@@ -3,8 +3,14 @@ package com.example.checkapp.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +25,7 @@ import com.example.checkapp.R;
 import com.example.checkapp.helper.CheckDAO;
 
 
+import com.example.checkapp.helper.broadcast_receiver;
 import com.example.checkapp.model.Checks;
 
 import java.util.Calendar;
@@ -28,6 +35,9 @@ public class AddCheckActivity extends AppCompatActivity {
     private EditText editAddCheck, editDate, editDescrition, editTime;
     private ImageView imageDate, imageTime;
     private Checks checkAtual;
+    private PendingIntent pendingIntent;
+    private AlarmManager alarmManager;
+
 
 
     @Override
@@ -37,6 +47,10 @@ public class AddCheckActivity extends AppCompatActivity {
         ids();
         date();
         time();
+
+        notification_cannel();
+        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,new Intent(this, broadcast_receiver.class),PendingIntent.FLAG_IMMUTABLE);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
 
         //Recuperar tarefa
@@ -67,6 +81,7 @@ public class AddCheckActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.itemFinalizar:
                 saveCheck();
+                set_notification_alarm( 60 * 60 * 1000);
                 break;
 
 
@@ -74,6 +89,40 @@ public class AddCheckActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void set_notification_alarm(long interval){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+
+        if (Build.VERSION.SDK_INT >= 23){
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),interval,pendingIntent);
+        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, interval,pendingIntent);
+        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, interval,pendingIntent);
+        }else{
+            alarmManager.set(AlarmManager.RTC_WAKEUP, interval,pendingIntent);
+        }
+    }
+
+    public void cancel_notification_alarm(){
+        alarmManager.cancel(pendingIntent);
+    }
+
+    private void notification_cannel(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            CharSequence name = "Reminder";
+            String description = "Reminder Notification";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("Notification",name,importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 
 
     public void saveCheck() {
@@ -148,22 +197,19 @@ public class AddCheckActivity extends AppCompatActivity {
     public void time() {
 
 
-        imageTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                TimePickerDialog dialog = new TimePickerDialog(AddCheckActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-
-                        editTime.setText(hour + ":" + minute);
+        imageTime.setOnClickListener(view -> {
 
 
-                    }
-                }, 15, 0, true);
-                dialog.show();
+            TimePickerDialog dialog = new TimePickerDialog(AddCheckActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 
-            }
+                    editTime.setText(hour + ":" + minute);
+
+
+                }
+            }, 15, 0, true);
+            dialog.show();
         });
 
 
@@ -202,4 +248,6 @@ public class AddCheckActivity extends AppCompatActivity {
 
 
     }
+
+
 }
