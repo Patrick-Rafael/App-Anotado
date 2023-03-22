@@ -20,4 +20,15 @@ Este App tem por objetivo ajudar na consolidação de rotinas diárias, além de
 ## Pagina de edição
 <img src="https://github.com/Patrick-Rafael/Imagens_dos_Apps/blob/master/pagina%20de%20edição.jpeg" width="230" height="486">
 
+### Tecnologias Usadas
 
+- Java
+- Android Studio
+- FireBase
+- SQLite
+
+### Autor
+
+Patrick Rafael
+
+https://www.linkedin.com/in/patrick-rafael-a8a3661a8/
